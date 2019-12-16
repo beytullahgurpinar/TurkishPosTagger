@@ -55,18 +55,18 @@ nn_cd_tagger = RegexpTagger([(r'^-?[0-9]+(.[0-9]+)?$', 'PUNC'), (r'.*', 'NOUN_NO
 
 # Unigram tagger
 unigram_tagger = UnigramTagger(training_data, backoff=nn_cd_tagger)
-print "Unigram accuracy: "
-print unigram_tagger.evaluate(evaulation_data)
+print("Unigram accuracy: ")
+print(unigram_tagger.evaluate(evaulation_data))
 
 # Bigram tagger 
 bigram_tagger = BigramTagger(training_data, backoff=unigram_tagger)
-print "Bigram accuracy: "
-print bigram_tagger.evaluate(evaulation_data)
+print("Bigram accuracy: ")
+print(bigram_tagger.evaluate(evaulation_data))
 
 # Trigram tagger 
 trigram_tagger = TrigramTagger(training_data, backoff=bigram_tagger)
-print "Trigram accuracy: "
-print trigram_tagger.evaluate(evaulation_data)
+print("Trigram accuracy: ")
+print(trigram_tagger.evaluate(evaulation_data))
 
 # Brill tagger templates
 templates = [
@@ -85,8 +85,8 @@ templates = [
 # First iteration
 trainer = brill_trainer.BrillTaggerTrainer(trigram_tagger, templates)
 brill_tagger = trainer.train(training_data, max_rules, min_score)
-print "Initial Brill accuracy:"
-print brill_tagger.evaluate(evaulation_data)
+print("Initial Brill accuracy:")
+print(brill_tagger.evaluate(evaulation_data))
 
 # 10 Folding
 for i in range(1, 5):
@@ -97,23 +97,23 @@ for i in range(1, 5):
     training_data = tagged_data_list[:cutoff]
     evaulation_data = tagged_data_list[cutoff:development_size]
 
-    print "Fold: "
-    print i
+    print("Fold: ")
+    print(i)
 
     # Training
     brill_tagger = trainer.train(training_data, max_rules, min_score)
 
     # Evaluation 
-    print "Accuracy: "
-    print brill_tagger.evaluate(evaulation_data)
+    print("Accuracy: ")
+    print(brill_tagger.evaluate(evaulation_data))
 
     i = i + 1
 
 # Saving my tagger
-file_writing = file('my_tagger.yaml', 'w')
-yaml.dump(brill_tagger, file_writing)
-file_writing.close()
+with open('my_tagger.yaml', 'w') as f:
+    yaml.dump(brill_tagger, f)
+    f.close()
 
-print "Done!"
+print("Done!")
 
 # End of code

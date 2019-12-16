@@ -1,9 +1,9 @@
-FROM python:2.7.11
+FROM python:3.7.5
 
-COPY . /turkish-pos-tagger
-WORKDIR /turkish-pos-tagger
+COPY . /TurkishPosTagger
+WORKDIR /TurkishPosTagger
 
-RUN pip install pyyaml
-RUN pip install -U nltk
+RUN pip3 install pyyaml
+RUN pip3 install -U nltk
 
-RUN python training_tagger.py
+RUN python training_tagger.py3.7.5

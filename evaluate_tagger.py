@@ -43,8 +43,8 @@ for i in range(1, 50):
     evaulation_data = tagged_data_list[cutoff:development_size]
 
     # Evaluation 
-    print "Accuracy: "
-    print myTagger.evaluate(evaulation_data)
+    print("Accuracy: ")
+    print(myTagger.evaluate(evaulation_data))
 
     i = i + 1
 
